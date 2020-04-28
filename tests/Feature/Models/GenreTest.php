@@ -34,43 +34,42 @@ class GenreTest extends TestCase
     public function testCreate()
     {
 
-     $genre = Genre::create(
-        [
-            'name' => 'test1'
-        ]
-     );
-     $genre->refresh();
-     $this->assertEquals('test1',$genre->name);
-     $this->assertTrue($genre->is_active);
+        $genre = Genre::create(
+            [
+                'name' => 'test1'
+            ]
+         );
+         $genre->refresh();
+         $regex = '/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/';
+         $this->assertTrue((bool) preg_match($regex, $genre->id));
+         $this->assertNotNull(Genre::find($genre->id));   
 
-     $genre = Genre::create(
-        [
-            'name' => 'test1',
-            'is_active' => false
-        ]
-     );
-     $genre->refresh();
-     $this->assertFalse($genre->is_active);
+        $genre = Genre::create(
+            [
+                'name' => 'test1'
+            ]
+        );
+        $genre->refresh();
+        $this->assertEquals('test1',$genre->name);
+        $this->assertTrue($genre->is_active);
 
-     $genre = Genre::create(
-        [
-            'name' => 'test1',
-            'is_active' => true
-        ]
-     );
-     $genre->refresh();
-     $this->assertTrue($genre->is_active);
+        $genre = Genre::create(
+            [
+                'name' => 'test1',
+                'is_active' => false
+            ]
+        );
+        $genre->refresh();
+        $this->assertFalse($genre->is_active);
 
-     $genre = Genre::create(
-        [
-            'name' => 'test1',
-            'is_active' => true
-        ]
-     );
-     $genre->refresh();
-     $regex = '/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/';
-     $this->assertTrue((bool) preg_match($regex, $genre->id));
-     $this->assertNotNull(Genre::find($genre->id));
+        $genre = Genre::create(
+            [
+                'name' => 'test1',
+                'is_active' => true
+            ]
+        );
+        $genre->refresh();
+        $this->assertTrue($genre->is_active);
 
     }
 
