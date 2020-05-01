@@ -44,6 +44,7 @@ class CategoryTest extends TestCase
          $category->refresh();
          $regex = '/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/';
          $this->assertTrue((bool) preg_match($regex, $category->id));
+         $this->assertEquals(36, strlen($category->id));
          $this->assertNotNull(Category::find($category->id));
 
         $category = Category::create(
@@ -128,9 +129,11 @@ class CategoryTest extends TestCase
         $this->assertCount(1, $categories);
 
         $category->delete();
-        $categories = Category::all();
+        $this->assertNull(Category::find($category->id));
 
+        $categories = Category::all();
         $this->assertCount(0, $categories);
+
         $this->assertNotNull($category->deleted_at);
         $this->assertNotNull(Category::onlyTrashed()->first());
 
