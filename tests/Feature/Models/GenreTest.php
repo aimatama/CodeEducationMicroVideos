@@ -42,6 +42,7 @@ class GenreTest extends TestCase
          $genre->refresh();
          $regex = '/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/';
          $this->assertTrue((bool) preg_match($regex, $genre->id));
+         $this->assertEquals(36, strlen($genre->id));
          $this->assertNotNull(Genre::find($genre->id));   
 
         $genre = Genre::create(
@@ -105,9 +106,11 @@ class GenreTest extends TestCase
         $this->assertCount(1, $genres);
 
         $genre->delete();
-        $genres = Genre::all();
+        $this->assertNull(Genre::find($genre->id));
 
+        $genres = Genre::all();
         $this->assertCount(0, $genres);
+
         $this->assertNotNull($genre->deleted_at);
         $this->assertNotNull(Genre::onlyTrashed()->first());
 
