@@ -15,6 +15,8 @@ abstract class BasicCrudController extends Controller
 
     protected abstract function rulesStore();
 
+    protected abstract function rulesUpdate();
+
     public function index()
     {
         return $this->model()::all();
