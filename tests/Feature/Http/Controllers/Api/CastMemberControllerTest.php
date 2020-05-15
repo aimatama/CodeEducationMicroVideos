@@ -110,7 +110,7 @@ class CastMemberControllerTest extends TestCase
 
         $data = [
             'name'=>'test',
-            'type'=>1
+            'type'=>CastMember::TYPE_DIRECTOR
         ];
         $response = $this->assertStore($data,$data + ['type' => 1,'is_active' => true,'deleted_at' => null]);
         $response->assertJsonStructure([
@@ -120,10 +120,10 @@ class CastMemberControllerTest extends TestCase
 
         $data = [
             'name'=>'test',
-            'type'=>2,
+            'type'=>CastMember::TYPE_ACTOR,
             'is_active'=>false
         ];
-        $response = $this->assertStore($data,$data + ['type' => 2,'is_active' => false]);
+        $response = $this->assertStore($data,$data + ['type' => CastMember::TYPE_ACTOR,'is_active' => false]);
 
     }
 
@@ -131,13 +131,13 @@ class CastMemberControllerTest extends TestCase
 
         $this->castMember = factory(CastMember::class)->create([
             'name'=>'name_test',
-            'type'=>1,
+            'type'=>CastMember::TYPE_DIRECTOR,
             'is_active'=>false
         ]);
 
         $data = [
             'name'=>'name_test2',
-            'type'=>'2',
+            'type'=>CastMember::TYPE_ACTOR,
             'is_active'=>true
         ];
         $response = $this->assertUpdate($data,$data + ['deleted_at' => null]);
