@@ -8,7 +8,14 @@ use Ramsey\Uuid\Uuid;
 
 class CastMember extends Model
 {
+    
     use SoftDeletes, Traits\Uuid;
+
+    const TYPE_DIRECTOR = 1;
+    const TYPE_ACTOR = 2;
+
+    public static $types = [CastMember::TYPE_DIRECTOR, CastMember::TYPE_ACTOR];
+
     protected $fillable = ['name', 'type', 'is_active'];
     protected $dates = ['deleted_at']; 
     protected $casts = [

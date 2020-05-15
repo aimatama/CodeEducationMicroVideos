@@ -67,8 +67,8 @@ class CastMemberControllerTest extends TestCase
         $data = [
             'type' => '10'
         ];
-        $this->assertInvalidationInStoreAction($data,'max.string',['max'=>'1']);
-        $this->assertInvalidationInUpdateAction($data,'max.string',['max'=>'1']);
+        $this->assertInvalidationInStoreAction($data, 'in');
+        $this->assertInvalidationInUpdateAction($data, 'in');
 
         $data = [
             'is_active' => 'a'

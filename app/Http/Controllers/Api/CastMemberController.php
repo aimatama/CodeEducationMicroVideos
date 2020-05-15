@@ -8,12 +8,16 @@ use App\Http\Controllers\Controller;
 class CastMemberController extends BasicCrudController
 {
 
-
-    private $rules = [
-        'name' => 'required|max:255',
-        'type' => 'required|min:1|max:1',
-        'is_active' => 'boolean'
-    ];
+    private $rules;
+    
+    public function __construct()
+    {
+        $this->rules = [
+            'name' => 'required|string|max:255',
+            'type' => 'required|integer|in:'. implode(',', [CastMember::TYPE_DIRECTOR, CastMember::TYPE_ACTOR]),
+            'is_active' => 'boolean'
+        ];
+    }
 
     protected function model()
     {
